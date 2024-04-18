@@ -6,13 +6,13 @@ import clsx from 'clsx';
 /** Функция для обработки открытия/закрытия формы */
 export type ArrowButtonProps = {
 	isOpen: boolean;
-	onClick?: () => void;
+	onClick: (param: boolean) => void;
 }
 
 export const ArrowButton = ({ onClick, isOpen }: ArrowButtonProps) => {
 
 	const arrowClickHandler = () => {
-		onClick?.();
+		onClick(!isOpen);
 	}
 
 	return (

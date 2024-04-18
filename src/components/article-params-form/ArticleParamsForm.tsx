@@ -29,7 +29,7 @@ export const ArticleParamsForm = ({
 	const [newBackgroundColor, setNewBackgroundColor] = useState(currentArticleState.backgroundColor);
 	const [newContentWidth, setNewContentWidth] = useState(currentArticleState.contentWidth);
 
-	const formSubmitHandler = (e: SyntheticEvent) => {
+	const formSubmitHandler = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		setCurrentArticleState({...currentArticleState, 
 			fontFamilyOption: newFontFamily, 
@@ -39,7 +39,7 @@ export const ArticleParamsForm = ({
 			fontSizeOption: newFontSize});
 	};
 
-	const formResetHandler = (e: SyntheticEvent) => {
+	const formResetHandler = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		setCurrentArticleState(defaultArticleState);
 		setNewFontFamily(defaultArticleState.fontFamilyOption);
@@ -49,20 +49,16 @@ export const ArticleParamsForm = ({
 		setNewContentWidth(defaultArticleState.contentWidth);
 	}
 
-	const formOpenHandler = () => {
-		setIsOpenForm(!isOpenForm);
-	};
-
 	useOutsideClickClose({
 		isOpen: isOpenForm,
 		rootRef,
-		onClose: formOpenHandler,
+		onClose: () => setIsOpenForm(false),
 		onChange: setIsOpenForm
 	})
 
 	return (
 		<>
-			<ArrowButton onClick={formOpenHandler} isOpen={isOpenForm}/>
+			<ArrowButton onClick={setIsOpenForm} isOpen={isOpenForm}/>
 			<aside 
 				ref={rootRef}
 				className={clsx(styles.container, isOpenForm && styles.container_open)}>
